@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage,graphicx,float,amsmath,enumitem,hyperref}
+\setlist{parsep=5.5pt}
+\setlength{\parindent}{0pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Time Series HW 5}
+\rhead{Allison Theobold, Andrea Mack, and Kenny Flagg}
+\setlength{\headheight}{18pt}
+\setlength{\headsep}{2pt}
+
+\title{Time Series HW 5}
+\author{Allison Theobold, Andrea Mack, and Kenny Flagg}
+\date{October 6, 2016}
+
+\begin{document}
+\maketitle
+
+<<setup, echo = FALSE, message = FALSE, cache = FALSE>>=
+library(knitr)
+opts_chunk$set(echo = FALSE, comment = NA, fig.align = "center",
+               fig.width = 6.5, fig.height = 4, fig.pos = "H",
+               size = "footnotesize", dev = "pdf",
+               dev.args = list(pointsize = 11))
+knit_theme$set("print")
+
+library(xtable)
+options(xtable.table.placement = "H", width = 80, scipen = 1,
+        show.signif.stars = FALSE)
+@
+
+{\it Groups of up to 3 allowed.}
+
+{\it Read Vincent and Mekis's 2006 paper and answer the following questions. I am also posting Zhang et al. (2000) for the reference on the method of trend estimation used.}
+
+{\it When you get to Table 3, it is helpful to add a vertical linear between the first ``positive'' column and the second ``negative'' column to understand what is presented.}
+
+{\it For the following questions, ignore the ``national trends'' part of it except for possibly the last question. There is plenty to discuss without that piece of the paper.}
+
+\begin{enumerate}
+
+\item%1
+{\it What is/are the research questions in Vincent and Mekis? You can be a little bit general here -- just a couple of sentences on what they are trying to explore.}
+
+\item%2
+{\it How many response variables are they analyzing? Explain one temperature and one precipitation based response that they are using in detail.}
+
+\item%3
+{\it How are they assessing trends? You will need to read pages 402-405 in Zhang et al. (2000) to get all the details. I just want the general discussion of the method -- do this in a few sentences. Then note their reason(s) for using this method?}
+
+\item%4
+{\it I think I successfully extracted their counts from Table 3 into the provided Table3.csv file but you should check my results. Use that information to provide the total number of tests they considered for the shorter and then longer series analyses and the total number of each of those that were ``significant''. What is the minimum and maximum number of tests performed across the different response variables for each length of series?}
+
+\item%5
+{\it Again focused on Table 3, if all tests are performed at the 5\% level, overall how many results should they have expected to be ``significant'' within the shorter and then longer trends being considered? How does that compare to their total number of ``significant'' results on each? Do the same comparison for each response variable in the table (total expected for that variable and number observed for shorter and then longer series). Are there any response variables where the difference in observed ``significant'' results and expected is such that you don't think there really is much overall evidence on that variable?}
+
+\item%6
+{\it Consider one panel of one of the figures that displays the trend and test results on a map of Canada. Note which figure you are discussing.}
+
+\begin{enumerate}
+
+\item%a
+{\it What is being displayed and what does that suggest about changes on this metric? Is there any issue with their display choices?}
+
+\item%b
+{\it Does it appear that there is some sort of spatial structure to the trend results? What does this suggest about the tests on that variable?}
+
+\end{enumerate}
+
+\item%7
+{\it Provide at least two things you might have done differently if you were involved in this paper. This can be in terms of methods used, the way things were interpreted, or graphical presentation of results. Assume that the data set is more or less what you have to work with and you want to address the same research questions.}
+
+\end{enumerate}
+
+\section*{References}
+
+\hangindent=1cm Vincent, L. and Mekis, E. (2006) Changes in Daily and Extreme Temperature and Precipitation Indices for Canada over the Twentieth Century. \emph{Atmosphere-Ocean}, 44(2): 177-193.
+
+\hangindent=1cm Zhang, X., Vincent, L., Hogg, W., and Niitsoo, A. (2000) Temperature and precipitation trends in Canada during the 20th century. \emph{Atmosphere-Ocean}, 38(3): 395-429.
+
+\appendix
+\section*{R Code}
+
+\begin{enumerate}
+
+\setcounter{enumi}{3}
+\item%4
+
+\item%5
+
+\end{enumerate}
+
+\end{document}

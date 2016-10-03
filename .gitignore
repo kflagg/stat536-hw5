@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+cache
+figure
+*.aux
+*.gz
+*.log
+*.out
+*.tex
+*.Rproj
