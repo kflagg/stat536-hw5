@@ -70,6 +70,13 @@ options(xtable.table.placement = "H", width = 80, scipen = 1,
 
 \item%7
 {\it Provide at least two things you might have done differently if you were involved in this paper. This can be in terms of methods used, the way things were interpreted, or graphical presentation of results. Assume that the data set is more or less what you have to work with and you want to address the same research questions.}
+\begin{itemize}
+\item I would have implemented model checking, to see if the AR(1) used to model the different climate variables would produce data similar to that which was observed.  
+\item Additionally, I would recommend fitting a similar model using Bayesian methods. We fit a similar model in 506, using 'JAGS', which would provide the researchers with the entire posterior distributions for the seasonal effects, $\tau_i,$ as well as the posterior distribution of $\rho.$ 
+\item The author's justification for what months and years were omitted due to missing values were sound, but I would be interested to see if imputation of the missing data would result in slightly different results. 
+\end{itemize}
+
+
 
 \end{enumerate}
 
