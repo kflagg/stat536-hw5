@@ -43,6 +43,8 @@ options(xtable.table.placement = "H", width = 80, scipen = 1,
 \item%1
 {\it What is/are the research questions in Vincent and Mekis? You can be a little bit general here -- just a couple of sentences on what they are trying to explore.}
 
+The goal of the author's work is to present trends in various indices of "daily and extreme temperatures an precipitation in Canada for the periods, 1950 - 2003 and 1900 - 2003. " The extend the analysis of \emph{Bonsal} and \emph{Zhang} with use of the latest versions of homogenized daily temperatures and adjusted daily precipitation measurements. They have update the indices based on the definitions by ETCCDMI, so that their analysis of Canadian trends is comparable with the rest of the world. 
+
 \item%2
 {\it How many response variables are they analyzing? Explain one temperature and one precipitation based response that they are using in detail.}
 
@@ -135,7 +137,7 @@ print(xtable(longer_tb.all, digits = c(rep(0,7))), include.rownames = FALSE)
 
 @
 
-The lower the number of significant tests, the more I am concerned. Across all indicies for both temperature and precipitation measurements, by chance we should expect 7-12 significant results. Particularly in the {\it Very Wet Days Index} for precipitation, we see that 7\% of the tests were significant, which is getting very close to the 5\% that we expect to be significant by chance when setting the 95\% confidence level. Corrections for multiple testing should have been used.
+The lower the number of significant tests, the more I am concerned. Across all indices for both temperature and precipitation measurements, by chance we should expect 7-12 significant results. Particularly in the {\it Very Wet Days Index} for precipitation, we see that 7\% of the tests were significant, which is getting very close to the 5\% that we expect to be significant by chance when setting the 95\% confidence level. Corrections for multiple testing should have been used.
 
 
 
@@ -147,7 +149,7 @@ The lower the number of significant tests, the more I am concerned. Across all i
 \item%a
 {\it What is being displayed and what does that suggest about changes on this metric? Is there any issue with their display choices?}
 
-\textbf{Figure 4c} shows the estimated change in mean number of days with precipitation from 1951 to 2003 at each weather station in their dataset. This is computed as the estimated slope of the linear trend multiplied by 54 years. The points are colored green where the trend is increasing and orange where the trend is decreasing. Small Xs mark locations where the slope has p-value $>$ 0.05; filled circles represent locations where they deemed the trend ``statistically significant'' and the size of the circle corresponds to the magnitude of the slope. Locations in the center on the country tend to have small and negative trends. Locations elsewhere generally have large green circles indicating increases in the number of days with precipitation, although a couple locations on the east coast have decreasing trends. Some locations in British Columbia have much larger increases than elsewhere, as much of that province is covered by a few big green spots. It is interesting to compare these trends to the trends in the simple day intensity index of P (Figure 4e). Locations with positive trends in number of days with precipitation tend to have negative trends in intensity, suggesting that suggesting that precipitation is becoming more spread out through the year.
+\textbf{Figure 4c} shows the estimated change in mean number of days with precipitation from 1951 to 2003 at each weather station in their data-set. This is computed as the estimated slope of the linear trend multiplied by 54 years. The points are colored green where the trend is increasing and orange where the trend is decreasing. Small Xs mark locations where the slope has p-value $>$ 0.05; filled circles represent locations where they deemed the trend ``statistically significant'' and the size of the circle corresponds to the magnitude of the slope. Locations in the center on the country tend to have small and negative trends. Locations elsewhere generally have large green circles indicating increases in the number of days with precipitation, although a couple locations on the east coast have decreasing trends. Some locations in British Columbia have much larger increases than elsewhere, as much of that province is covered by a few big green spots. It is interesting to compare these trends to the trends in the simple day intensity index of P (Figure 4e). Locations with positive trends in number of days with precipitation tend to have negative trends in intensity, suggesting that suggesting that precipitation is becoming more spread out through the year.
 
 The big circles overlap so it is hard to see individual locations. This figure misrepresents the central part of the country because it looks like there is less going on in the center than in the south and along the coasts (where there are large swaths of color), when really there is just less information available for the central region. I would use points of the same size and a continuous color scale. This alternative is not perfect because it is difficult to see small differences in color, but it would be a more honest portrayal of the amount of information available.
 
