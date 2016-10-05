@@ -50,9 +50,9 @@ They are analyzing a total of 18 response variables (8 temperature indices and 1
 
 \begin{itemize}
 
-\item One temperature index is the \textbf{standard deviation of Tmean}, which they include so they can study trends in temperature variability. This is the standard deviation of the daily mean temperature anomaly, where the mean anomaly is reckoned as the difference between the mean temperature for each day and the average of all available daily mean temperatures for 1961 to 1990, and the standard deviation is computed for each year. Thus this is a measure of the variation in ``overall'' temperature within the year. I say ``overall'' to constrast this with the standard deviation of Tmin or Tmax, which should be larger because the latter are based only on the most extreme temperatures of each day; the standard deviation of Tmean should primarily pick up variation across months and seasons.
+\item One temperature index is the \textbf{standard deviation of Tmean}, which they include so they can study trends in temperature variability. This is the standard deviation of the daily mean temperature anomaly, where the mean anomaly is reckoned as the difference between the mean temperature for each day and the average of all available daily mean temperatures for 1961 to 1990, and then the standard deviation is computed for each year. Thus this is a measure of the variation in ``overall'' temperature within the year. I say ``overall'' to contrast this with the standard deviation of Tmin or Tmax, which should be larger because the latter are based only on the most extreme temperatures of each day; the standard deviation of Tmean should primarily pick up variation across months and seasons.
 
-\item One precipitation index is the \textbf{simple day intensity index of P}, defined as the total annual precipitation (inches of rain plus water-equivalent-inches of snowfall) divided by the number of days with measureable levels of precipitation. This measures the daily average amount of precipitation for the days that it precipitated that year. It should be noted that the number of days with precipitation is another of the indices they are analyzing. It would seem more appropriate to model several of their indices simultaneously as a multivariate response, but of course that type of model is very complicated and difficult to fit. We at least should be aware of the dependency among responses and not be surprised when sites that have a trend in one variable also have a trend in the other variable.
+\item One precipitation index is the \textbf{simple day intensity index of P}, defined as the total annual precipitation (inches of rain plus water-equivalent-inches of snowfall) divided by the number of days with measurable levels of precipitation. This measures the daily average amount of precipitation for the days that it precipitated that year. It should be noted that the number of days with precipitation is another of the indices they are analyzing. It would seem more appropriate to model several of their indices simultaneously as a multivariate response, but of course that type of model is very complicated and difficult to fit. We at least should be aware of the dependency among responses and not be surprised when sites that have a trend in the number of days with precipitation also have a trend in the simple day intensity index of P.
 
 \end{itemize}
 
@@ -147,12 +147,14 @@ The lower the number of significant tests, the more I am concerned. Across all i
 \item%a
 {\it What is being displayed and what does that suggest about changes on this metric? Is there any issue with their display choices?}
 
-\textbf{Figure 4} shows... Note with the big dots it's hard to see individual locations. I'd use a continuous color scale but that has it's own problems.
+\textbf{Figure 4c} shows the estimated change in mean number of days with precipitation from 1951 to 2003 at each weather station in their dataset. This is computed as the estimated slope of the linear trend multiplied by 54 years. The points are colored green where the trend is increasing and orange where the trend is decreasing. Small Xs mark locations where the slope has p-value $>$ 0.05; filled circles represent locations where they deemed the trend ``statistically significant'' and the size of the circle corresponds to the magnitude of the slope. Locations in the center on the country tend to have small and negative trends. Locations elsewhere generally have large green circles indicating increases in the number of days with precipitation, although a couple locations on the east coast have decreasing trends. Some locations in British Columbia have much larger increases than elsewhere, as much of that province is covered by a few big green spots. It is interesting to compare these trends to the trends in the simple day intensity index of P (Figure 4e). Locations with positive trends in number of days with precipitation tend to have negative trends in intensity, suggesting that suggesting that precipitation is becoming more spread out through the year.
+
+The big circles overlap so it is hard to see individual locations. This figure misrepresents the central part of the country because it looks like there is less going on in the center than in the south and along the coasts (where there are large swaths of color), when really there is just less information available for the central region. I would use points of the same size and a continuous color scale. This alternative is not perfect because it is difficult to see small differences in color, but it would be a more honest portrayal of the amount of information available.
 
 \item%b
 {\it Does it appear that there is some sort of spatial structure to the trend results? What does this suggest about the tests on that variable?}
 
-There absolutely does appear to be spatial structure. Locations near each other have dots of similar size and color, meaning that they have similar estimated trends. This suggests positive spatial autocorrelation. Analogously to temporal autocorrelation, ignoring positive spatial correlation leads to underestimating the standard errors, meaning that their p-values are too small and so their tests are more liberal than they intended.
+There absolutely does appear to be spatial structure. Locations near each other have circles of similar size and color, meaning that they have similar estimated trends. This suggests positive spatial autocorrelation. Analogously to temporal autocorrelation, ignoring positive spatial correlation leads to underestimating the standard errors, meaning that their p-values are too small and so their tests are more liberal than they intended.
 
 \end{enumerate}
 
@@ -181,8 +183,12 @@ There absolutely does appear to be spatial structure. Locations near each other 
 
 \setcounter{enumi}{3}
 \item%4
+<<prob4, echo = TRUE, eval = FALSE>>=
+@
 
 \item%5
+<<prob5, echo = TRUE, eval = FALSE>>=
+@
 
 \end{enumerate}
 
