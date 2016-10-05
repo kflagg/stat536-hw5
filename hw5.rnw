@@ -46,6 +46,16 @@ options(xtable.table.placement = "H", width = 80, scipen = 1,
 \item%2
 {\it How many response variables are they analyzing? Explain one temperature and one precipitation based response that they are using in detail.}
 
+They are analyzing a total of 18 response variables (8 temperature indices and 10 precipitation indices).
+
+\begin{itemize}
+
+\item One temperature index is the \textbf{standard deviation of Tmean}, which they include so they can study trends in temperature variability. This is the standard deviation of the daily mean temperature anomaly, where the mean anomaly is reckoned as the difference between the mean temperature for each day and the average of all available daily mean temperatures for 1961 to 1990, and the standard deviation is computed for each year. Thus this is a measure of the variation in ``overall'' temperature within the year. I say ``overall'' to constrast this with the standard deviation of Tmin or Tmax, which should be larger because the latter are based only on the most extreme temperatures of each day; the standard deviation of Tmean should primarily pick up variation across months and seasons.
+
+\item One precipitation index is the \textbf{simple day intensity index of P}, defined as the total annual precipitation (inches of rain plus water-equivalent-inches of snowfall) divided by the number of days with measureable levels of precipitation. This measures the daily average amount of precipitation for the days that it precipitated that year. It should be noted that the number of days with precipitation is another of the indices they are analyzing. It would seem more appropriate to model several of their indices simultaneously as a multivariate response, but of course that type of model is very complicated and difficult to fit. We at least should be aware of the dependency among responses and not be surprised when sites that have a trend in one variable also have a trend in the other variable.
+
+\end{itemize}
+
 \item%3
 {\it How are they assessing trends? You will need to read pages 402-405 in Zhang et al. (2000) to get all the details. I just want the general discussion of the method -- do this in a few sentences. Then note their reason(s) for using this method?}
 
@@ -63,8 +73,12 @@ options(xtable.table.placement = "H", width = 80, scipen = 1,
 \item%a
 {\it What is being displayed and what does that suggest about changes on this metric? Is there any issue with their display choices?}
 
+\textbf{Figure 4} shows... Note with the big dots it's hard to see individual locations. I'd use a continuous color scale but that has it's own problems.
+
 \item%b
 {\it Does it appear that there is some sort of spatial structure to the trend results? What does this suggest about the tests on that variable?}
+
+There absolutely does appear to be spatial structure. Locations near each other have dots of similar size and color, meaning that they have similar estimated trends. This suggests positive spatial autocorrelation. Analogously to temporal autocorrelation, ignoring positive spatial correlation leads to underestimating the standard errors, meaning that their p-values are too small and so their tests are more liberal than they intended.
 
 \end{enumerate}
 
