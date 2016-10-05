@@ -52,8 +52,82 @@ options(xtable.table.placement = "H", width = 80, scipen = 1,
 \item%4
 {\it I think I successfully extracted their counts from Table 3 into the provided Table3.csv file but you should check my results. Use that information to provide the total number of tests they considered for the shorter and then longer series analyses and the total number of each of those that were ``significant''. What is the minimum and maximum number of tests performed across the different response variables for each length of series?}
 
+<<prob4, results = 'asis', fig.align = 'center'>>=
+tb3 <- read.csv("Table3.csv")
+tb3_temp <- tb3[1:8,c(1,3:8)]
+temp_tests <- colSums(tb3_temp[,2:7])
+tb3_precip <- tb3[10:19,c(1,3:8)]
+precip_tests <- colSums(tb3_precip[,-1])
+
+temp_tot <- sum(temp_tests)
+precip_tot <- sum(precip_tests)
+
+cat("The total number of tests done on temperature indicies was", temp_tot, "and the total number of tests done on the precipitation indicies was", precip_tot, ".\n")
+
+tb3_shorter <- tb3[-9,c(1,3:5)]
+tb3_longer <- tb3[-9,c(1,6:8)]
+
+shorter_tot <- sum(colSums(tb3_shorter[,-1]))
+longer_tot <- sum(colSums(tb3_longer[,-1]))
+
+cat("The total number of tests done on the shorter time period, 1950-2003 was", shorter_tot, "and the total number of tests done on the longer time period, 1900-2003 was", longer_tot, ".\n")
+
+
+shorter_sig <- shorter_tot - sum(tb3_shorter[,3])
+longer_sig <- longer_tot - sum(tb3_longer[,3])
+
+cat("The total number of significant tests found in the shorter time period, 1950-2003 was", shorter_sig, "and the total number of significant tests found in the longer time period, 1900-2003 was", longer_sig, ".")
+
+tb.out <- data.frame(matrix(c(longer_tot, shorter_tot, longer_sig, shorter_sig), nrow=2, ncol = 2, byrow = TRUE))
+rownames(tb.out) <- c("Total Tests", "Total Significant")
+colnames(tb.out) <- c("Longer", "Shorter")
+
+print(xtable(tb.out, digits = c(0,0,0)))
+@
+
+{\bf What does he mean max and min number of tests?}
+
 \item%5
 {\it Again focused on Table 3, if all tests are performed at the 5\% level, overall how many results should they have expected to be ``significant'' within the shorter and then longer trends being considered? How does that compare to their total number of ``significant'' results on each? Do the same comparison for each response variable in the table (total expected for that variable and number observed for shorter and then longer series). Are there any response variables where the difference in observed ``significant'' results and expected is such that you don't think there really is much overall evidence on that variable?}
+
+<<prob5, results = 'asis'>>=
+cat("At the 95\\% confidence level, we cannot say that exactly 95\\% of the tests done in a study will detect actual differences for a fixed number of tests. But in the long run, we expect 95\\% of tests to come to correct conclustions. By chance, we can estimate that 5\\% of the tests will falsely find significant results. For the tests done in the shorter time frame, that is about", 0.05*shorter_tot, "and in the longer time frame, that is about", 0.05*longer_tot, "that we expect to wrongly yield significant results.")
+
+tb.sig <- data.frame(matrix(c(0.95*longer_tot, longer_sig, 0.95*shorter_tot, shorter_sig), nrow = 2, ncol = 2, byrow = TRUE))
+colnames(tb.sig) <- c("Estimated FDR", "Total Significant")
+rownames(tb.sig) <- c("Longer", "Shorter")
+print(xtable(tb.sig, digits = c(0,0,0)))
+
+shorter_var.tot <- apply(tb3_shorter[,c(2:4)], 1,sum)
+longer_var.tot <- apply(tb3_longer[,c(2:4)], 1,sum)
+
+shorter_var.sig <- apply(tb3_shorter[,c(2,4)], 1,sum)
+longer_var.sig <- apply(tb3_longer[,c(2,4)], 1,sum)
+
+shorter_var.prop <- shorter_var.sig/shorter_var.tot*100
+longer_var.prop <- longer_var.sig/shorter_var.tot*100
+
+shorter_var.expected <- shorter_var.tot*0.05
+longer_var.expected <- longer_var.tot*0.05
+
+shorter_tb.all <- data.frame(cbind(shorter_var.tot, shorter_var.sig, shorter_var.expected, shorter_var.prop))
+shorter_tb.all$index <- c(paste(tb3_shorter[,1]))
+shorter_tb.all$type <- c(rep("Temp", 8), rep("Precip", 10))
+
+colnames(shorter_tb.all) <- c("Total Tests", "Total Signif", "Expected Signif", "Percent Signif", "Index", "Type")
+longer_tb.all <- data.frame(cbind(longer_var.tot, longer_var.sig, longer_var.expected, longer_var.prop))
+longer_tb.all$index <- c(paste(tb3_longer[,1]))
+longer_tb.all$type <- c(rep("Temp", 8), rep("Precip", 10))
+
+colnames(shorter_tb.all) <- c("Total Tests", "Total Signif", "Expected Signif", "Percent Signif", "Index", "Type")
+print(xtable(shorter_tb.all, digits = c(rep(0,7))), include.rownames = FALSE)
+print(xtable(longer_tb.all, digits = c(rep(0,7))), include.rownames = FALSE)
+
+@
+
+The lower the number of significant tests, the more I am concerned. Across all indicies for both temperature and precipitation measurements, by chance we should expect 7-12 significant results. Particularly in the {\it Very Wet Days Index} for precipitation, we see that 7\% of the tests were significant, which is getting very close to the 5\% that we expect to be significant by chance when setting the 95\% confidence level. Corrections for multiple testing should have been used.
+
+
 
 \item%6
 {\it Consider one panel of one of the figures that displays the trend and test results on a map of Canada. Note which figure you are discussing.}
