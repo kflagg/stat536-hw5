@@ -48,7 +48,7 @@ The goal of the author's work is to present trends in various indices of "daily 
 \item%2
 {\it How many response variables are they analyzing? Explain one temperature and one precipitation based response that they are using in detail.}
 
-They are analyzing a total of 18 response variables (8 temperature indices and 10 precipitation indices). A the cold nights temperature index counts the number of days with the minimum temperature below the $10^{th}$ percentile., where the percentile value are calculated from the 1961 - 1990 reference period. The annual snowfall precipitation is the annual accumulated snowfall, converted to its liquid equivalent. 
+They are analyzing a total of 18 response variables (8 temperature indices and 10 precipitation indices). 
 
 \begin{itemize}
 
