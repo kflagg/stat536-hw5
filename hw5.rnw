@@ -61,6 +61,21 @@ They are analyzing a total of 18 response variables (8 temperature indices and 1
 \item%3
 {\it How are they assessing trends? You will need to read pages 402-405 in Zhang et al. (2000) to get all the details. I just want the general discussion of the method -- do this in a few sentences. Then note their reason(s) for using this method?}
 
+To assess the trends, they are using the same method as \emph{Zhang, et al.}, modeling each climate index with both a linear time trend, serial correlation between each time point and the one previous to it. They fit the model as follows:  
+\begin{itemize}
+\item They first estimate $\rho,$ the lag 1 autocorrelation, using the original data ($Y_t$ and $Y_{t-1}$)
+
+\item They then de-correlate the data, $(W_t = Y_t - \rho(Y_{t-1}))$
+
+\item Then using the de-correlated data ($W_t$) they estimate the linear trend, $\beta,$ of the climate variable with time. This is done by taking the median of all the estimated slopes of two pairs in the de-correlated data, $\{(W_i, W_j)\: i, j = 1, \ldots, n\}.$
+
+\item Using the estimated linear trend, $\beta,$ they then de-trend the origina data to obtain a new estimate of $\rho.$ Thus, they find $Z_t = Y_t - \beta(t)$, and estimate the lag 1 autocorrelation, $\rho,$ using these de-trended $Z_t$ and $Z_{t-1}.$ 
+
+\item This process is repeated until the consecutive estimates of $\beta$ and $\rho$ are ``close enough". It typically takes 3-12 iterations. 
+
+\end{itemize}
+  
+
 \item%4
 {\it I think I successfully extracted their counts from Table 3 into the provided Table3.csv file but you should check my results. Use that information to provide the total number of tests they considered for the shorter and then longer series analyses and the total number of each of those that were ``significant''. What is the minimum and maximum number of tests performed across the different response variables for each length of series?}
 
