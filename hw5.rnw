@@ -26,8 +26,8 @@ opts_chunk$set(echo = FALSE, comment = NA, fig.align = "center",
 knit_theme$set("print")
 
 library(xtable)
-options(xtable.table.placement = "H", width = 80, scipen = 1,
-        show.signif.stars = FALSE)
+options(xtable.table.placement = "H", xtable.caption.placement = "top",
+        width = 80, scipen = 1, show.signif.stars = FALSE)
 @
 
 {\it Groups of up to 3 allowed.}
@@ -43,7 +43,7 @@ options(xtable.table.placement = "H", width = 80, scipen = 1,
 \item%1
 {\it What is/are the research questions in Vincent and Mekis? You can be a little bit general here -- just a couple of sentences on what they are trying to explore.}
 
-The goal of the author's work is to present trends in various indices of "daily and extreme temperatures an precipitation in Canada for the periods, 1950 - 2003 and 1900 - 2003. " The extend the analysis of \emph{Bonsal} and \emph{Zhang} with use of the latest versions of homogenized daily temperatures and adjusted daily precipitation measurements. They have update the indices based on the definitions by ETCCDMI, so that their analysis of Canadian trends is comparable with the rest of the world. 
+The goal of the author's work is to present trends in various indices of ``daily and extreme temperatures and precipitation in Canada for the periods, 1950 - 2003 and 1900 - 2003.'' They extend the analysis of \emph{Bonsal} and \emph{Zhang} with use of the latest versions of homogenized daily temperatures and adjusted daily precipitation measurements. They have updated the indices based on the definitions by ETCCDMI, so that their analysis of Canadian trends is comparable with the rest of the world.
 
 \item%2
 {\it How many response variables are they analyzing? Explain one temperature and one precipitation based response that they are using in detail.}
@@ -63,15 +63,15 @@ They are analyzing a total of 18 response variables (8 temperature indices and 1
 
 To assess the trends, they are using the same method as \emph{Zhang, et al.}, modeling each climate index with both a linear time trend, serial correlation between each time point and the one previous to it. They fit the model as follows:  
 \begin{itemize}
-\item They first estimate $\rho,$ the lag 1 auto correlation, using the original data ($Y_t$ and $Y_{t-1}$)
+\item They first estimate $\rho,$ the lag 1 autocorrelation, using the original data ($Y_t$ and $Y_{t-1}$)
 
-\item They then de-correlate the data, $(W_t = Y_t - \rho(Y_{t-1}))$
+\item They then de-correlate the data $(W_t = Y_t - \rho(Y_{t-1}))$
 
-\item Then using the de-correlated data ($W_t$) they estimate the linear trend, $\beta,$ of the climate variable with time. This is done by taking the median of all the estimated slopes of two pairs in the de-correlated data, $\{(W_i, W_j)\: i, j = 1, \ldots, n\}.$
+\item Then using the de-correlated data ($W_t$) they estimate the linear trend, $\beta,$ of the climate variable with time. This is done by taking the median of all the estimated slopes of two pairs in the de-correlated data, $\{(W_i, W_j): i, j = 1, \ldots, n\}.$
 
-\item Using the estimated linear trend, $\beta,$ they then de-trend the original data to obtain a new estimate of $\rho.$ Thus, they find $Z_t = Y_t - \beta(t)$, and estimate the lag 1 auto correlation, $\rho,$ using these de-trended $Z_t$ and $Z_{t-1}.$ 
+\item Using the estimated linear trend, $\beta,$ they then de-trend the original data to obtain a new estimate of $\rho.$ Thus, they find $Z_t = Y_t - \beta(t)$, and estimate the lag 1 autocorrelation, $\rho,$ using these de-trended $Z_t$ and $Z_{t-1}.$ 
 
-\item This process is repeated until the consecutive estimates of $\beta$ and $\rho$ are ``close enough". It typically takes 3-12 iterations. 
+\item This process is repeated until the consecutive estimates of $\beta$ and $\rho$ are ``close enough''. It typically takes 3-12 iterations. 
 
 \end{itemize}
   
@@ -81,7 +81,7 @@ To assess the trends, they are using the same method as \emph{Zhang, et al.}, mo
 
 As far as I can tell, you successfully extracted the authors' counts. In the longer series, the minimum number of tests was 59, done on diurnal temperature range (a temperature measurement) while the maximum number of tests was 76, done on the annual snowfall precipitation (a precipitation measurement). In the shorter series, the minimum number of tests was 148 on summer days (a temperature measurement) while the maximum number of test was 239 on highest 5 day precipitation amount (a precipitation measurement).
 
-<<prob4, results = 'asis', fig.align = 'center'>>=
+<<prob4, results = 'asis'>>=
 tb3 <- read.csv("Table3.csv")
 tb3_temp <- tb3[1:8,c(1,3:8)]
 temp_tests <- colSums(tb3_temp[,2:7])
@@ -91,7 +91,9 @@ precip_tests <- colSums(tb3_precip[,-1])
 temp_tot <- sum(temp_tests)
 precip_tot <- sum(precip_tests)
 
-cat("The total number of tests done on temperature indicies was", temp_tot, "and the total number of tests done on the precipitation indicies was", precip_tot, ".\n")
+cat("The total number of tests done on temperature indicies was ", temp_tot,
+    " and the total number of tests done on the precipitation indicies was ",
+    precip_tot, ".\n", sep = "")
 
 tb3_shorter <- tb3[-9,c(1,3:5)]
 tb3_longer <- tb3[-9,c(1,6:8)]
@@ -99,15 +101,21 @@ tb3_longer <- tb3[-9,c(1,6:8)]
 shorter_tot <- sum(colSums(tb3_shorter[,-1]))
 longer_tot <- sum(colSums(tb3_longer[,-1]))
 
-cat("The total number of tests done on the shorter time period, 1950-2003 was", shorter_tot, "and the total number of tests done on the longer time period, 1900-2003 was", longer_tot, ".\n")
+cat("The total number of tests done on the shorter time period, 1950-2003 was ",
+    shorter_tot, " and the total number of tests done on the longer time period, 1900-2003 was ",
+    longer_tot, ".\n", sep = "")
 
 
 shorter_sig <- shorter_tot - sum(tb3_shorter[,3])
 longer_sig <- longer_tot - sum(tb3_longer[,3])
 
-cat("The total number of significant tests found in the shorter time period, 1950-2003 was", shorter_sig, "and the total number of significant tests found in the longer time period, 1900-2003 was", longer_sig, ".")
+cat("The total number of significant tests found in the shorter time period, 1950-2003 was ",
+    shorter_sig,
+    " and the total number of significant tests found in the longer time period, 1900-2003 was ",
+    longer_sig, ".", sep = "")
 
-tb.out <- data.frame(matrix(c(longer_tot, shorter_tot, longer_sig, shorter_sig), nrow=2, ncol = 2, byrow = TRUE))
+tb.out <- data.frame(matrix(c(longer_tot, shorter_tot, longer_sig, shorter_sig),
+                            nrow=2, ncol = 2, byrow = TRUE))
 rownames(tb.out) <- c("Total Tests", "Total Significant")
 colnames(tb.out) <- c("Longer", "Shorter")
 
@@ -118,9 +126,16 @@ print(xtable(tb.out, digits = c(0,0,0)))
 {\it Again focused on Table 3, if all tests are performed at the 5\% level, overall how many results should they have expected to be ``significant'' within the shorter and then longer trends being considered? How does that compare to their total number of ``significant'' results on each? Do the same comparison for each response variable in the table (total expected for that variable and number observed for shorter and then longer series). Are there any response variables where the difference in observed ``significant'' results and expected is such that you don't think there really is much overall evidence on that variable?}
 
 <<prob5, results = 'asis'>>=
-cat("At the 95\\% confidence level, we cannot say that exactly 95\\% of the tests done in a study will detect actual differences for a fixed number of tests. But in the long run, we expect 95\\% of tests to come to correct conclustions. By chance, we can estimate that 5\\% of the tests will falsely find significant results. For the tests done in the shorter time frame, that is about", 0.05*shorter_tot, "and in the longer time frame, that is about", 0.05*longer_tot, "that we expect to wrongly yield significant results.")
+cat("At the 95\\% confidence level, we cannot say that exactly 95\\% of the tests
+done in a study will detect actual differences for a fixed number of tests. But in
+the long run, we expect 95\\% of tests to come to correct conclustions. By chance,
+we can estimate that 5\\% of the tests will falsely find significant results. For
+the tests done in the shorter time frame, that is about", 0.05*shorter_tot,
+"and in the longer time frame, that is about", 0.05*longer_tot,
+"that we expect to wrongly yield significant results.")
 
-tb.sig <- data.frame(matrix(c(0.95*longer_tot, longer_sig, 0.95*shorter_tot, shorter_sig), nrow = 2, ncol = 2, byrow = TRUE))
+tb.sig <- data.frame(matrix(c(0.95*longer_tot, longer_sig, 0.95*shorter_tot, shorter_sig),
+                            nrow = 2, ncol = 2, byrow = TRUE))
 colnames(tb.sig) <- c("Estimated FDR", "Total Significant")
 rownames(tb.sig) <- c("Longer", "Shorter")
 print(xtable(tb.sig, digits = c(0,0,0)))
@@ -137,25 +152,29 @@ longer_var.prop <- longer_var.sig/shorter_var.tot*100
 shorter_var.expected <- shorter_var.tot*0.05
 longer_var.expected <- longer_var.tot*0.05
 
-shorter_tb.all <- data.frame(cbind(shorter_var.tot, shorter_var.sig, shorter_var.expected, shorter_var.prop))
+shorter_tb.all <- data.frame(cbind(shorter_var.tot, shorter_var.sig,
+                                   shorter_var.expected, shorter_var.prop))
 shorter_tb.all$index <- c(paste(tb3_shorter[,1]))
 shorter_tb.all$type <- c(rep("Temp", 8), rep("Precip", 10))
 
-colnames(shorter_tb.all) <- c("Total Tests", "Total Signif", "Expected Signif", "Percent Signif", "Index", "Type")
-longer_tb.all <- data.frame(cbind(longer_var.tot, longer_var.sig, longer_var.expected, longer_var.prop))
+colnames(shorter_tb.all) <- c("Total Tests", "Total Signif", "Expected Signif",
+                              "Percent Signif", "Index", "Type")
+longer_tb.all <- data.frame(cbind(longer_var.tot, longer_var.sig,
+                                  longer_var.expected, longer_var.prop))
 longer_tb.all$index <- c(paste(tb3_longer[,1]))
 longer_tb.all$type <- c(rep("Temp", 8), rep("Precip", 10))
 
-colnames(shorter_tb.all) <- c("Total Tests", "Total Signif", "Expected Signif", "Percent Signif", "Index", "Type")
-colnames(longer_tb.all) <- c("Total Tests", "Total Signif", "Expected Signif", "Percent Signif", "Index", "Type")
-print(xtable(shorter_tb.all, digits = c(rep(0,7))), include.rownames = FALSE)
-print(xtable(longer_tb.all, digits = c(rep(0,7))), include.rownames = FALSE)
-
+colnames(shorter_tb.all) <- c("Total Tests", "Total Signif", "Expected Signif",
+                              "Percent Signif", "Index", "Type")
+colnames(longer_tb.all) <- c("Total Tests", "Total Signif", "Expected Signif",
+                             "Percent Signif", "Index", "Type")
+print(xtable(shorter_tb.all, digits = c(rep(0,7)),
+             caption = "Shorter time series"), include.rownames = FALSE)
+print(xtable(longer_tb.all, digits = c(rep(0,7)),
+      caption = "Longer time series"), include.rownames = FALSE)
 @
 
 The lower the number of significant tests, the more I am concerned. Across all indices for both temperature and precipitation measurements, by chance we should expect 7-12 significant results. Particularly in the {\it Very Wet Days Index} for precipitation, we see that 7\% of the tests were significant, which is getting very close to the 5\% that we expect to be significant by chance when setting the 95\% confidence level. Corrections for multiple testing should have been used.
-
-
 
 \item%6
 {\it Consider one panel of one of the figures that displays the trend and test results on a map of Canada. Note which figure you are discussing.}
@@ -165,14 +184,14 @@ The lower the number of significant tests, the more I am concerned. Across all i
 \item%a
 {\it What is being displayed and what does that suggest about changes on this metric? Is there any issue with their display choices?}
 
-\textbf{Figure 4c} shows the estimated change in mean number of days with precipitation from 1951 to 2003 at each weather station in their data-set. This is computed as the estimated slope of the linear trend multiplied by 54 years. The points are colored green where the trend is increasing and orange where the trend is decreasing. Small Xs mark locations where the slope has p-value $>$ 0.05; filled circles represent locations where they deemed the trend ``statistically significant'' and the size of the circle corresponds to the magnitude of the slope. Locations in the center of the country tend to have small and negative trends. Locations elsewhere generally have large green circles indicating increases in the number of days with precipitation, although a couple locations on the east coast have decreasing trends. Some locations in British Columbia have much larger increases than elsewhere, as much of that province is covered by a few big green spots. It is interesting to compare these trends to the trends in the simple day intensity index of P (Figure 4e). Locations with positive trends in number of days with precipitation tend to have negative trends in intensity, suggesting that suggesting that precipitation is becoming more spread out through the year.
+\textbf{Figure 4c} shows the estimated change in mean number of days with precipitation from 1951 to 2003 at each weather station in their dataset. This is computed as the estimated slope of the linear trend multiplied by 54 years. The points are colored green where the trend is increasing and orange where the trend is decreasing. Small Xs mark locations where the slope has p-value $>$ 0.05; filled circles represent locations where they deemed the trend ``statistically significant'' and the size of the circle corresponds to the magnitude of the slope. Locations in the center of the country tend to have small and negative trends. Locations elsewhere generally have large green circles indicating increases in the number of days with precipitation, although a couple locations on the east coast have decreasing trends. Some locations in British Columbia have much larger increases than elsewhere, as much of that province is covered by a few big green spots. It is interesting to compare these trends to the trends in the simple day intensity index of P (Figure 4e). Locations with positive trends in number of days with precipitation tend to have negative trends in intensity, suggesting that precipitation is becoming more spread out through the year.
 
-The big circles overlap so it is hard to see individual locations. This figure misrepresents the central part of the country because it looks like there is less going on in the center than in the south and along the coasts (where there are large swaths of color), when really there is just less information available for the central region. I would use points of the same size and a continuous color scale. This alternative is not perfect because it is difficult to see small differences in color, but it would be a more honest portrayal of the amount of information available.
+The figure is set up so that ``significant'' trends are easier to see than weaker trends. The big circles overlap so it is hard to see individual locations. In particular, it is impossible to see Xs that are covered up by large circles of the same color. The presentation could be dramatically improved by replacing the Xs with circles of a different color and overlaying them on top of the plot. This figure also misrepresents the central part of the country because it looks like there is less going on in the center than in the south and along the coasts (where there are large swaths of color), when really there is just less information available about the central region. I would use points of the same size and a continuous color scale. This alternative is not perfect because it is difficult to see small differences in color, but it would be a more honest portrayal of the amount of information available.
 
 \item%b
 {\it Does it appear that there is some sort of spatial structure to the trend results? What does this suggest about the tests on that variable?}
 
-There absolutely does appear to be spatial structure. Locations near each other have circles of similar size and color, meaning that they have similar estimated trends. This suggests positive spatial auto correlation. Analogously to temporal auto correlation, ignoring positive spatial correlation leads to underestimating the standard errors, meaning that their p-values are too small and so their tests are more liberal than they intended.
+There absolutely does appear to be spatial structure. Locations near each other have circles of similar size and color, meaning that they have similar estimated trends. This suggests positive spatial autocorrelation. Analogously to temporal autocorrelation, ignoring positive spatial correlation leads to underestimating the standard errors, meaning that their p-values are too small and so their tests are more liberal than they intended.
 
 \end{enumerate}
 
@@ -180,11 +199,9 @@ There absolutely does appear to be spatial structure. Locations near each other 
 {\it Provide at least two things you might have done differently if you were involved in this paper. This can be in terms of methods used, the way things were interpreted, or graphical presentation of results. Assume that the data set is more or less what you have to work with and you want to address the same research questions.}
 \begin{itemize}
 \item I would have implemented model checking, to see if the AR(1) used to model the different climate variables would produce data similar to that which was observed.  
-\item Additionally, I would recommend fitting a similar model using Bayesian methods. We fit a similar model in 506, using 'JAGS', which would provide the researchers with the entire posterior distributions for the seasonal effects, $\tau_i,$ as well as the posterior distribution of $\rho.$ 
-\item The author's justification for what months and years were omitted due to missing values were sound, but I would be interested to see if imputation of the missing data would result in slightly different results. 
+\item Additionally, I would recommend fitting a similar model using Bayesian methods. We fit a similar model in 506, using JAGS, which would provide the researchers with the entire posterior distributions for the seasonal effects, $\tau_i,$ as well as the posterior distribution of $\rho.$ 
+\item The author's justification for what months and years were omitted due to missing values was sound, but I would be interested to see if imputation of the missing data would result in slightly different results. 
 \end{itemize}
-
-
 
 \end{enumerate}
 
